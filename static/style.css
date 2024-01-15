@@ -4,6 +4,11 @@
     width: 400px;
 }
 
+.form-container{
+    padding: 2px;
+    border: 2px solid black;
+}
+
 .input-container {
     margin: 2px;
 }
