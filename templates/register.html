@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form class="site-form" action="http://127.0.0.1:5000/register" enctype="multipart/form-data" method="POST">
+        <span class="input-container">
+            <input type="text" name="username" id="inputname" placeholder="Nome"}>
+            <input type="text" name="userlastname" id="inputlastname" placeholder="Lastname"}>
+        </span>
+        <span class="input-container">
+            <input type="email" name="useremail" id="inputemail" placeholder="Email">
+        </span>
+        <span class="input-container">
+            <input type="password" name="userpassword" id="inputpassword" placeholder="Senha">
+        </span>
+        <span class="input-container">
+             <input type="date" name="userbirthday" id="inputage">
+        </span>
+        <label for="">Gênero</label>
+        <span class="input-container">
+            <input type="radio" name="usergender" id="gendermale" value="masculino">
+            <label for="gendermale">Masculino</label>
+            <input type="radio" name="usergender" id="genderfemale" value="feminino">
+            <label for="genderfemale">Feminino</label>
+            
+        </span>
+        <button type="submit">Enviar</button>
+        
+    </form>
+</body>
+</html>
