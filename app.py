@@ -16,28 +16,29 @@ class Usuarios(db.Model):
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column("nome", db.String(150))
     sobrenome = db.Column("sobrenome", db.String(150))
+    email = db.Column("email", db.String(150))
     senha = db.Column("senha", db.String(150))
     dataDeAniversario = db.Column("data_de_aniversario", db.Date)
     genero = db.Column("genero", db.String(30))
 
-    def __init__(self, nome, sobrenome, senha, dataDeAniversario, genero):
+    def __init__(self, nome, sobrenome, email, senha, dataDeAniversario, genero):
         self.nome = nome
         self.sobrenome = sobrenome
+        self.email = email
         self.senha = senha
         self.dataDeAniversario = dataDeAniversario
         self.genero = genero
 
 
-def check_username(form: dict, banco):
-    username = form["username"]
-    query = Usuarios.query.where(Usuarios.nome == username)
+def check_email_exists(email: dict, banco):
+    query = Usuarios.query.where(Usuarios.email == email)
     return bool(query.count())
 
 
-def check_passwd(form: dict, banco):
-    passwd = form["userpassword"]
-    query = Usuarios.query.where(Usuarios.senha == passwd)
+def check_passwd_exists(password, banco):
+    query = Usuarios.query.where(Usuarios.senha == password)
     return bool(query.count())
+
 
 # Decorator to import libs in HTML code
 @app.template_filter()
@@ -55,13 +56,16 @@ def index():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        # Check the username
-        valid_usernam = check_username(request.form, Usuarios)
+        # Check the email
+        valid_email= check_email_exists(request.form["useremail"], Usuarios)
         # Check the password
-        valid_passwd = check_passwd(request.form, Usuarios)
+        valid_passwd = check_passwd_exists(request.form["userpassword"], Usuarios)
         # Verifica as credenciais do usuário
-        if valid_usernam and valid_passwd:
-            session["username"] = request.form['username']
+        if valid_email and valid_passwd:
+            # Query to search username using email
+            query = Usuarios.query.where(Usuarios.email == request.form['useremail'])
+            username = query.first().nome
+            session["username"] = username
             return redirect(url_for("index"), code=302)
         else:
             abort(401)
@@ -75,6 +79,7 @@ def register():
         usuario = Usuarios(
             request.form["username"],
             request.form["userlastname"],
+            request.form["useremail"],
             request.form["userpassword"],
             datetime.strptime(request.form["userbirthday"], "%Y-%m-%d"),
             request.form["usergender"],

@@ -12,18 +12,22 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nome</th>
                 <th>Sobrenome</th>
                 <th>Senha</th>
                 <th>Data de Nascimento</th>
+                <th>Email</th>
                 <th>Gênero</th>
             </tr>
         </thead>
         <tbody>
             {% for u in usuarios %}
                 <tr>
+                    <td>{{u.id}}</td>
                     <td>{{u.nome}}</td>
                     <td>{{u.sobrenome}}</td>
+                    <td>{{u.email}}</td>
                     <td>{{u.senha}}</td>
                     <td>{{datetime.datetime.strftime(u.dataDeAniversario, "%d/%m/%Y")}}
                     <td>{{u.genero}}</td>
