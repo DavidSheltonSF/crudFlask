@@ -19,6 +19,7 @@
                 <th>Data de Nascimento</th>
                 <th>Email</th>
                 <th>Gênero</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -31,9 +32,14 @@
                     <td>{{u.senha}}</td>
                     <td>{{datetime.datetime.strftime(u.dataDeAniversario, "%d/%m/%Y")}}
                     <td>{{u.genero}}</td>
+                    <td><a href="/edit/{{u.email}}">Editar</a> <a href="/delete/{{u.email}}">Deletar</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <br>
+    <a href="/login">Retornar para o Login</a>
+    <br>
+    <a href="/register">Retornar para o Registro</a>
 </body>
 </html>
