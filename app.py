@@ -1,5 +1,4 @@
 from flask import Flask, request, redirect, url_for, abort, render_template, session
-from json import dumps, loads
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -96,6 +95,26 @@ def table():
     usuarios = Usuarios.query.all()
     return render_template("table.html", usuarios=usuarios, datetime = import_lib("datetime"))
 
+@app.route("/delete/<useremail>")
+def delete(useremail):
+    usuario = Usuarios.query.where(Usuarios.email == useremail).first()
+    db.session.delete(usuario)
+    db.session.commit()
+    return redirect(url_for("table"))
+
+@app.route("/edit/<useremail>", methods=["POST", "GET"])
+def edit(useremail):
+    usuario = Usuarios.query.where(Usuarios.email == useremail).first()
+    if request.method == "POST":
+        usuario.nome = request.form["username"]
+        usuario.sobrenome = request.form["userlastname"]
+        usuario.email = request.form["useremail"]
+        usuario.senha = request.form["userpassword"]
+        usuario.aniversario = request.form["userbirthday"]
+        usuario.genero = request.form["usergender"]
+        db.session.commit()
+        return redirect(url_for("table"))
+    return render_template("edit.html", usuario=usuario, datetime=import_lib("datetime"))
 
 @app.route("/logout")
 def logout():
