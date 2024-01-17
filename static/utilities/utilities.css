@@ -1,9 +1,9 @@
-.flex-column{
+.column-container{
     display: flex;
     flex-direction: column;
 }
 
-.flex-row{
+.row-container{
     display: flex;
     flex-direction: row;
 }
