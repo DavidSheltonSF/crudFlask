@@ -6,17 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='utilities/utilities.css') }}">
 </head>
 <body>
-    <form class="site-form" action="http://127.0.0.1:5000/login" method="POST">
-        <span class="input-container">
-            <input type="email" name="useremail" id="inputemail" placeholder="Email"}>
-        </span>
-        <span class="input-container">
-            <input type="password" name="userpassword" id="inputpassword" placeholder="Senha">
-        </span>
-        <button type="submit">Entrar</button>
-    </form>
-    <a href="register">Não possui conta? Clique aqui</a>
+    <section class="flex-center">
+        <div class="form-container">
+            <form class="site-form" action="http://127.0.0.1:5000/login" method="POST">
+                <span class="input-container">
+                    <input type="email" name="useremail" id="inputemail" placeholder="Email" required>
+                </span>
+                <span class="input-container">
+                    <input type="password" name="userpassword" id="inputpassword" placeholder="Senha" required>
+                </span>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+        <a href="register">Não possui conta? Clique aqui</a>
+    </section>
+      
 </body>
 </html>
